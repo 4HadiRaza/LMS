@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-forest antialiased bg-white;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-forest leading-tight;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-forest;
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .gold-rule {
+    @apply w-16 h-0.5 bg-accent rounded-full;
+  }
+
+  .section-label {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-accent;
+  }
+
+  .btn-primary {
+    @apply bg-accent text-forest font-bold px-8 py-3.5 rounded-lg
+           hover:bg-accent-hover transition-all duration-200
+           hover:shadow-lg hover:-translate-y-0.5
+           focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-accent text-accent font-bold px-8 py-3
+           rounded-lg bg-transparent
+           hover:bg-accent hover:text-forest transition-all duration-200
+           focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2;
+  }
+
+  .btn-outline-white {
+    @apply border border-white/30 text-white font-semibold px-6 py-3
+           rounded-lg bg-transparent
+           hover:bg-white/10 transition-all duration-200;
+  }
+}
+
+/* Focus & interaction */
+button, a, [role="button"], input, select, textarea {
+  @apply outline-none;
+}
+
+button:focus-visible, a:focus-visible {
+  @apply outline-2 outline-accent outline-offset-2;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-sand rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-sage; }
+
+/* Range input */
+input[type="range"] {
+  @apply appearance-none w-full h-1.5 bg-sand rounded-full cursor-pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none w-4 h-4 bg-accent rounded-full cursor-pointer
+         shadow-sm border-2 border-white;
+}
