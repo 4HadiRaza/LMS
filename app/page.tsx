@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { courses, testimonials, categories } from '@/lib/mockData';
 import CourseCard from '@/components/courses/CourseCard';
 
@@ -51,11 +52,12 @@ export default function Home() {
 
             {/* Right – Hero Image */}
             <div className="hidden lg:block relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
+              <div className="relative w-full h-[450px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
                   src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&h=450&fit=crop"
                   alt="Tax professional working"
-                  className="w-full h-[450px] object-cover"
+                  fill
+                  className="object-cover"
                 />
                 {/* Overlay card */}
                 <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur rounded-lg p-4 shadow-lg max-w-[200px]">
@@ -192,7 +194,7 @@ export default function Home() {
                       &ldquo;{t.content}&rdquo;
                     </p>
                     <div className="flex items-center gap-3">
-                      <img src={t.image} alt={t.name} className="w-9 h-9 rounded-full object-cover" />
+                      <Image src={t.image} alt={t.name} width={36} height={36} className="w-9 h-9 rounded-full object-cover" />
                       <div>
                         <p className="text-white text-sm font-semibold">{t.name}</p>
                         <p className="text-accent text-xs">{t.title}</p>
@@ -205,11 +207,12 @@ export default function Home() {
 
             {/* Right – Image */}
             <div className="hidden lg:block">
-              <div className="rounded-2xl overflow-hidden shadow-2xl">
-                <img
+              <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
                   src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&h=500&fit=crop"
                   alt="Students in a professional setting"
-                  className="w-full h-[500px] object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <p className="text-center text-mint/40 text-xs mt-4">

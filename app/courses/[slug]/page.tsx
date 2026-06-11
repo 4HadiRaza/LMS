@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { courses, instructors, reviews, getTotalLessons, getTotalDurationMinutes } from '@/lib/mockData';
+import { courses, instructors, reviews, getTotalDurationMinutes } from '@/lib/mockData';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
@@ -38,7 +38,6 @@ export default function CourseDetail({ params }: Props) {
   const instructor = instructors.find((i) => i.id === course.instructorId);
   const isFree = course.price === null;
   const priceDisplay = isFree ? 'Free' : `PKR ${course.price!.toLocaleString()}`;
-  const totalLessons = getTotalLessons(course);
   const totalDurationHrs = Math.floor(getTotalDurationMinutes(course) / 60);
 
   const toggleModule = (id: string) => {
@@ -162,7 +161,7 @@ export default function CourseDetail({ params }: Props) {
               <div className="mb-12">
                 <h2 className="text-2xl font-extrabold mb-6">Your Instructor</h2>
                 <div className="bg-white border border-sand rounded-xl p-6 flex flex-col sm:flex-row gap-6">
-                  <img src={instructor.image} alt={instructor.name} className="w-24 h-24 rounded-xl object-cover shrink-0 shadow-sm" />
+                  <Image src={instructor.image} alt={instructor.name} width={96} height={96} className="w-24 h-24 rounded-xl object-cover shrink-0 shadow-sm" />
                   <div>
                     <h3 className="font-bold text-lg text-forest mb-1">{instructor.name}</h3>
                     <p className="text-[10px] font-bold text-accent uppercase tracking-widest mb-3">

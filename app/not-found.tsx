@@ -13,7 +13,7 @@ export default function NotFound() {
           Page Not Found
         </p>
         <p className="text-[var(--color-text-secondary)] mb-8">
-          The course or page you're looking for doesn't exist.
+          The course or page you&apos;re looking for doesn&apos;t exist.
         </p>
         <Link href="/">
           <button className="bg-[var(--color-accent)] text-[var(--color-primary)] px-8 py-3 rounded-lg font-bold hover:bg-[var(--color-accent-hover)] transition-colors">
