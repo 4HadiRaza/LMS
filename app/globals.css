@@ -10,16 +10,16 @@
   }
 
   body {
-    @apply font-sans text-forest antialiased bg-white;
+    @apply font-sans text-text-primary antialiased bg-white;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-forest leading-tight;
+    @apply font-bold text-text-primary leading-tight;
   }
 
   ::selection {
-    @apply bg-accent/20 text-forest;
+    @apply bg-brand-green/10 text-text-primary;
   }
 }
 
@@ -28,33 +28,64 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  .gold-rule {
-    @apply w-16 h-0.5 bg-accent rounded-full;
+  .btn-signup {
+    @apply bg-accent-gold text-forest font-semibold px-5 py-2 rounded-md text-sm
+           hover:bg-accent-gold-dark transition-all duration-200
+           focus-visible:outline-2 focus-visible:outline-accent-gold focus-visible:outline-offset-2;
   }
 
-  .section-label {
-    @apply text-xs font-bold uppercase tracking-[0.2em] text-accent;
+  .btn-signin {
+    @apply bg-white text-brand-green font-semibold px-5 py-2 rounded-md text-sm
+           border border-brand-green
+           hover:bg-brand-green/5 transition-all duration-200
+           focus-visible:outline-2 focus-visible:outline-brand-green focus-visible:outline-offset-2;
   }
 
-  .btn-primary {
-    @apply bg-accent text-forest font-bold px-8 py-3.5 rounded-lg
-           hover:bg-accent-hover transition-all duration-200
-           hover:shadow-lg hover:-translate-y-0.5
-           focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2;
+  .card-course {
+    @apply bg-white border border-border-light rounded-xl overflow-hidden
+           transition-all duration-300 ease-out
+           hover:shadow-card-hover hover:-translate-y-1;
   }
 
-  .btn-outline {
-    @apply border-2 border-accent text-accent font-bold px-8 py-3
-           rounded-lg bg-transparent
-           hover:bg-accent hover:text-forest transition-all duration-200
-           focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2;
+  .card-live {
+    @apply relative rounded-xl overflow-hidden cursor-pointer
+           transition-all duration-300 ease-out
+           hover:shadow-card-hover hover:-translate-y-1;
   }
 
-  .btn-outline-white {
-    @apply border border-white/30 text-white font-semibold px-6 py-3
-           rounded-lg bg-transparent
-           hover:bg-white/10 transition-all duration-200;
+  .card-batch {
+    @apply bg-white border border-border-light rounded-xl overflow-hidden
+           transition-all duration-300 ease-out
+           hover:shadow-card-hover hover:-translate-y-1;
   }
+
+  .section-title {
+    @apply text-xl md:text-2xl font-bold text-text-primary;
+  }
+
+  .count-badge {
+    @apply inline-flex items-center justify-center bg-gray-100 text-text-secondary
+           text-xs font-medium px-2.5 py-0.5 rounded-full ml-2;
+  }
+
+  .discount-pill {
+    @apply inline-flex items-center bg-amber-100 text-amber-800
+           text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+
+  .live-badge {
+    @apply inline-flex items-center bg-live-blue text-white
+           text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded;
+  }
+}
+
+/* Hide scrollbar for carousels */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Focus & interaction */
@@ -63,20 +94,11 @@ button, a, [role="button"], input, select, textarea {
 }
 
 button:focus-visible, a:focus-visible {
-  @apply outline-2 outline-accent outline-offset-2;
+  @apply outline-2 outline-brand-green outline-offset-2;
 }
 
-/* Scrollbar */
+/* Custom scrollbar for non-carousel areas */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { @apply bg-sand rounded-full; }
-::-webkit-scrollbar-thumb:hover { @apply bg-sage; }
-
-/* Range input */
-input[type="range"] {
-  @apply appearance-none w-full h-1.5 bg-sand rounded-full cursor-pointer;
-}
-input[type="range"]::-webkit-slider-thumb {
-  @apply appearance-none w-4 h-4 bg-accent rounded-full cursor-pointer
-         shadow-sm border-2 border-white;
-}
+::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-gray-400; }

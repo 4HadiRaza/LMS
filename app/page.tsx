@@ -1,254 +1,250 @@
 'use client';
 
-import Link from 'next/link';
+import { useRef } from 'react';
 import Image from 'next/image';
-import { courses, testimonials, categories } from '@/lib/mockData';
-import CourseCard from '@/components/courses/CourseCard';
+import { liveClasses, courses, batches } from '@/lib/mockData';
 
 export default function Home() {
-  const featuredCourses = courses.filter((c) => c.badge === 'bestseller' || c.rating >= 4.8).slice(0, 6);
-  const stats = [
-    { value: '50K+', label: 'Active Learners' },
-    { value: '200+', label: 'Expert Courses' },
-    { value: '98%', label: 'Pass Rate' },
-    { value: '15+', label: 'Years Experience' },
-  ];
+  const batchScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollBatches = (direction: 'left' | 'right') => {
+    if (!batchScrollRef.current) return;
+    const amount = 320;
+    batchScrollRef.current.scrollBy({
+      left: direction === 'left' ? -amount : amount,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <main>
-      {/* ─── Hero ─────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-primary-dark via-primary to-primary overflow-hidden">
-        {/* Dot pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+      {/* ════════════════════════════════════════════════════════
+          HERO BANNER
+         ════════════════════════════════════════════════════════ */}
+      <section
+        id="hero-banner"
+        className="w-full"
+        style={{
+          background: 'linear-gradient(135deg, #1a4a3a 0%, #1a4a3a 30%, #2a6a52 55%, #c9a84c 100%)',
+        }}
+      >
+        <div className="container-main py-12 md:py-16">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+            Welcome to TaxMaster Academy
+          </h1>
+          <p className="text-white/70 mt-3 text-base md:text-lg max-w-xl">
+            Pakistan&apos;s Premier Tax &amp; Accounting Education Platform
+          </p>
+        </div>
+      </section>
 
-        <div className="container-main relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[85vh] py-20">
-            {/* Left – Text */}
-            <div>
-              <p className="section-label mb-5">The Most Trusted Tax Academy</p>
-              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-white leading-[1.1] mb-6">
-                Master the Complexities of{' '}
-                <span className="text-accent underline decoration-accent/30 decoration-2 underline-offset-4">
-                  Taxation & Finance
-                </span>
-              </h1>
-              <p className="text-lg text-mint/80 leading-relaxed mb-8 max-w-xl">
-                Rigorous, practice-led training for practitioners, CAs, and legal
-                professionals. Grow your practice and your professional standing.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/courses">
-                  <button className="btn-primary text-sm uppercase tracking-wider">
-                    Explore Courses
-                  </button>
-                </Link>
-                <Link href="/courses">
-                  <button className="btn-outline-white text-sm">
-                    View Curriculum
-                  </button>
-                </Link>
-              </div>
-            </div>
+      {/* ════════════════════════════════════════════════════════
+          UPCOMING LIVE CLASSES
+         ════════════════════════════════════════════════════════ */}
+      <section id="live-classes-section" className="py-10 md:py-14">
+        <div className="container-main">
+          <h2 className="section-title mb-6">Upcoming Live Classes</h2>
 
-            {/* Right – Hero Image */}
-            <div className="hidden lg:block relative">
-              <div className="relative w-full h-[450px] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="flex gap-5 overflow-x-auto hide-scrollbar pb-4">
+            {liveClasses.map((lc, index) => (
+              <div
+                key={lc.id}
+                className="card-live shrink-0 w-[280px] sm:w-[300px] aspect-[4/3] relative group"
+                style={{ animationDelay: `${index * 80}ms` }}
+              >
+                {/* Background image */}
                 <Image
-                  src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&h=450&fit=crop"
-                  alt="Tax professional working"
+                  src={lc.thumbnail}
+                  alt={lc.title}
                   fill
                   className="object-cover"
+                  sizes="300px"
                 />
-                {/* Overlay card */}
-                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur rounded-lg p-4 shadow-lg max-w-[200px]">
-                  <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1">A-Level</p>
-                  <p className="text-xs font-semibold text-forest">Accreditation</p>
-                  <p className="text-[10px] text-sage mt-1">Recognized by Pakistan&apos;s leading regulatory bodies</p>
+
+                {/* Dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                {/* LIVE Badge */}
+                <div className="absolute top-3 left-3">
+                  <span className="live-badge">LIVE</span>
                 </div>
-              </div>
-              {/* Decorative glow */}
-              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ─── Stats ────────────────────────────────────────────── */}
-      <section className="bg-cream border-b border-sand">
-        <div className="container-main py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center group">
-                <p className="text-3xl md:text-4xl font-extrabold text-accent leading-none mb-2 group-hover:scale-105 transition-transform duration-200">
-                  {stat.value}
-                </p>
-                <p className="text-xs font-semibold uppercase tracking-widest text-sage">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Specialized Domains ─────────────────────────────── */}
-      <section className="py-20">
-        <div className="container-main">
-          <div className="text-center mb-14">
-            <p className="section-label mb-3">What We Offer</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-forest">
-              Specialized Domains
-            </h2>
-            <p className="text-sage mt-3 max-w-2xl mx-auto">
-              Our courses are specifically curated to address the unique regulatory
-              landscape of Pakistan and international standards.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {categories.map((cat, index) => (
-              <Link
-                key={cat.id}
-                href={`/courses?category=${cat.id}`}
-                className="group no-underline"
-              >
-                <div className={`p-6 rounded-xl border transition-all duration-200 h-full ${
-                  index === 0
-                    ? 'bg-primary text-white border-primary hover:bg-primary-dark'
-                    : 'bg-white border-sand hover:border-primary/30 hover:shadow-card-hover'
-                }`}>
-                  {/* Icon */}
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${
-                    index === 0 ? 'bg-accent/20' : 'bg-cream'
-                  }`}>
-                    <svg className={`w-5 h-5 ${index === 0 ? 'text-accent' : 'text-primary'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  </div>
-                  <h3 className={`font-bold text-base mb-2 ${index === 0 ? 'text-white' : 'text-forest'}`}>
-                    {cat.name}
-                  </h3>
-                  <p className={`text-sm leading-relaxed mb-4 ${index === 0 ? 'text-mint/70' : 'text-sage'}`}>
-                    {cat.description}
+                {/* Content overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="text-white/70 text-[11px] font-medium uppercase tracking-wider mb-1">
+                    {lc.category}
                   </p>
-                  <span className={`text-xs font-semibold inline-flex items-center gap-1 ${
-                    index === 0 ? 'text-accent' : 'text-primary group-hover:text-accent'
-                  } transition-colors`}>
-                    Explore Topic
-                    <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
+                  <h3 className="text-white text-sm font-bold leading-snug mb-2 line-clamp-2 group-hover:text-amber-300 transition-colors">
+                    {lc.title}
+                  </h3>
+                  <p className="text-white/60 text-[11px]">
+                    {lc.date} • {lc.time} • {lc.instructor}
+                  </p>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Featured Courses ─────────────────────────────────── */}
-      <section className="py-20 bg-cream border-y border-sand">
+      {/* ════════════════════════════════════════════════════════
+          COURSES
+         ════════════════════════════════════════════════════════ */}
+      <section id="courses-section" className="py-10 md:py-14 bg-white">
         <div className="container-main">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <p className="section-label mb-3">Advance Your Career</p>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-forest">
-                Featured Certifications
-              </h2>
+          {/* Section Header */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center">
+              <h2 className="section-title">Courses</h2>
+              <span className="count-badge">{courses.length}</span>
             </div>
-            <Link
-              href="/courses"
-              className="text-sm font-semibold text-primary hover:text-accent transition-colors no-underline flex items-center gap-1.5 shrink-0"
-            >
-              View All Courses
+            <button className="text-sm font-semibold text-brand-green hover:text-brand-green-dark transition-colors flex items-center gap-1">
+              View All
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </Link>
+            </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+
+          {/* Course Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {courses.map((course, index) => (
+              <div
+                key={course.id}
+                className="card-course group"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {/* Thumbnail */}
+                <div className="relative w-full aspect-[16/9] overflow-hidden">
+                  <Image
+                    src={course.thumbnail}
+                    alt={course.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
+
+                {/* Card Body */}
+                <div className="p-4">
+                  <h3 className="text-sm font-bold text-text-primary leading-snug line-clamp-2 mb-2 group-hover:text-brand-green transition-colors">
+                    {course.title}
+                  </h3>
+
+                  {/* Metadata */}
+                  <p className="text-xs text-text-secondary mb-3">
+                    {course.lessonCount} Lessons
+                    {course.trialCount ? ` • ${course.trialCount} Trial` : ''}
+                  </p>
+
+                  {/* Pricing */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {course.price === null ? (
+                      <span className="text-base font-bold text-green-600">FREE</span>
+                    ) : (
+                      <>
+                        <span className="text-base font-bold text-text-primary">
+                          Rs. {course.price.toLocaleString('en-PK')}
+                        </span>
+                        {course.originalPrice && (
+                          <span className="text-xs text-text-secondary line-through">
+                            Rs. {course.originalPrice.toLocaleString('en-PK')}
+                          </span>
+                        )}
+                        {course.discountPercent && (
+                          <span className="discount-pill">
+                            {course.discountPercent}% off
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Testimonials ─────────────────────────────────────── */}
-      <section className="py-20 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-
-        <div className="container-main relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left – Quotes */}
-            <div>
-              <p className="section-label mb-3">Student Testimonials</p>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-10">
-                Trusted by Pakistan&apos;s Leading Practitioners
-              </h2>
-
-              <div className="space-y-6">
-                {testimonials.slice(0, 2).map((t) => (
-                  <div key={t.id} className="bg-white/5 border border-white/10 rounded-xl p-6">
-                    <p className="text-mint/80 text-sm leading-relaxed mb-4 italic">
-                      &ldquo;{t.content}&rdquo;
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <Image src={t.image} alt={t.name} width={36} height={36} className="w-9 h-9 rounded-full object-cover" />
-                      <div>
-                        <p className="text-white text-sm font-semibold">{t.name}</p>
-                        <p className="text-accent text-xs">{t.title}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* ════════════════════════════════════════════════════════
+          BATCHES
+         ════════════════════════════════════════════════════════ */}
+      <section id="batches-section" className="py-10 md:py-14 bg-bg-light">
+        <div className="container-main">
+          {/* Section Header */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center">
+              <h2 className="section-title">Batches</h2>
+              <span className="count-badge">{batches.length}</span>
             </div>
+            <div className="flex items-center gap-3">
+              <button className="text-sm font-semibold text-brand-green hover:text-brand-green-dark transition-colors flex items-center gap-1">
+                View All
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
 
-            {/* Right – Image */}
-            <div className="hidden lg:block">
-              <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&h=500&fit=crop"
-                  alt="Students in a professional setting"
-                  fill
-                  className="object-cover"
-                />
+              {/* Carousel Arrows */}
+              <div className="hidden sm:flex items-center gap-2">
+                <button
+                  id="batch-scroll-left"
+                  onClick={() => scrollBatches('left')}
+                  className="w-8 h-8 rounded-full border border-border-light bg-white flex items-center justify-center
+                             hover:border-brand-green hover:text-brand-green transition-all duration-200
+                             active:scale-95"
+                  aria-label="Scroll batches left"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  id="batch-scroll-right"
+                  onClick={() => scrollBatches('right')}
+                  className="w-8 h-8 rounded-full border border-border-light bg-white flex items-center justify-center
+                             hover:border-brand-green hover:text-brand-green transition-all duration-200
+                             active:scale-95"
+                  aria-label="Scroll batches right"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
-              <p className="text-center text-mint/40 text-xs mt-4">
-                Empowering the next generation of financial leaders across Pakistan
-              </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ─── CTA Banner ───────────────────────────────────────── */}
-      <section className="py-20">
-        <div className="container-main">
-          <div className="bg-primary-dark rounded-2xl px-8 md:px-16 py-16 text-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Ready to Advance Your Professional Standing?
-              </h2>
-              <p className="text-mint/70 max-w-2xl mx-auto mb-8">
-                Join thousands of practitioners mastering the art of taxation and accounting through
-                our expert-led, practice-focused curriculum.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/courses">
-                  <button className="btn-primary text-sm uppercase tracking-wider">
-                    Start Your Certification
-                  </button>
-                </Link>
-                <Link href="/courses">
-                  <button className="btn-outline-white text-sm">
-                    Explore Courses
-                  </button>
-                </Link>
+          {/* Batch Carousel */}
+          <div
+            ref={batchScrollRef}
+            className="flex gap-5 overflow-x-auto hide-scrollbar pb-4 scroll-smooth"
+          >
+            {batches.map((batch, index) => (
+              <div
+                key={batch.id}
+                className="card-batch shrink-0 w-[300px] sm:w-[320px] group"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                {/* Banner thumbnail */}
+                <div className="relative w-full aspect-[16/9] overflow-hidden">
+                  <Image
+                    src={batch.thumbnail}
+                    alt={batch.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="320px"
+                  />
+                </div>
+
+                {/* Title */}
+                <div className="p-4">
+                  <h3 className="text-sm font-bold text-text-primary leading-snug line-clamp-2 group-hover:text-brand-green transition-colors">
+                    {batch.title}
+                  </h3>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

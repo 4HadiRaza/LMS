@@ -4,9 +4,9 @@ import Footer from '@/components/layout/Footer'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'TaxMaster Academy — Professional Tax & Accounting Education',
+  title: 'TaxMaster Academy — Professional Tax & Accounting Education in Pakistan',
   description:
-    'Empowering Pakistan\'s financial professionals through world-class taxation education and certifications. Master FBR compliance, corporate accounting, and more.',
+    'Pakistan\'s premier platform for taxation and accounting education. Master FBR compliance, IFRS standards, income tax filing, and more with expert-led courses and live classes.',
 }
 
 export default function RootLayout({

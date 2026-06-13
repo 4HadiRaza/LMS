@@ -9,36 +9,48 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: {
+        'brand-green': {
           DEFAULT: '#1a4a3a',
           dark: '#0f2d24',
+          light: '#2a6a52',
         },
-        accent: {
+        'accent-gold': {
           DEFAULT: '#c9a84c',
-          hover: '#b8963e',
+          dark: '#b8963e',
+          light: '#d4b965',
         },
-        mint: '#9fd3b8',
-        cream: '#f5f5f0',
-        forest: '#1a2e1a',
-        sage: '#6b7c6b',
-        sand: '#e0e0da',
+        'hero-dark': '#0f2d24',
+        'hero-light': '#c9a84c',
+        'live-blue': '#2563eb',
+        'discount-gold': '#f59e0b',
+        'text-primary': '#1a1a1a',
+        'text-secondary': '#6b7280',
+        'border-light': '#e5e7eb',
+        'bg-light': '#f9fafb',
+        'mint': '#9fd3b8',
+        'forest': '#1a2e1a',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       boxShadow: {
-        card: '0 1px 3px rgba(26,74,58,0.06), 0 1px 2px rgba(26,74,58,0.04)',
-        'card-hover': '0 12px 32px rgba(26,74,58,0.12), 0 4px 8px rgba(26,74,58,0.06)',
-        'sidebar': '0 4px 24px rgba(26,74,58,0.08)',
+        'card': '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+        'card-hover': '0 10px 25px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.05)',
+        'header': '0 1px 3px rgba(0,0,0,0.05)',
       },
       keyframes: {
         'fade-in': {
           from: { opacity: '0', transform: 'translateY(8px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
+        'slide-up': {
+          from: { opacity: '0', transform: 'translateY(16px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in 0.3s ease-out',
+        'slide-up': 'slide-up 0.4s ease-out',
       },
     },
   },
