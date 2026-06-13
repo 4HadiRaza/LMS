@@ -2,8 +2,9 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { liveClasses, courses, batches } from '@/lib/mockData';
-
+import CourseCard from '@/components/courses/CourseCard';
 export default function Home() {
   const batchScrollRef = useRef<HTMLDivElement>(null);
 
@@ -98,68 +99,19 @@ export default function Home() {
               <h2 className="section-title">Courses</h2>
               <span className="count-badge">{courses.length}</span>
             </div>
-            <button className="text-sm font-semibold text-brand-green hover:text-brand-green-dark transition-colors flex items-center gap-1">
+            <Link href="/courses" className="text-sm font-semibold text-brand-green hover:text-brand-green-dark transition-colors flex items-center gap-1 no-underline">
               View All
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </button>
+            </Link>
           </div>
 
           {/* Course Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {courses.map((course, index) => (
-              <div
-                key={course.id}
-                className="card-course group"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {/* Thumbnail */}
-                <div className="relative w-full aspect-[16/9] overflow-hidden">
-                  <Image
-                    src={course.thumbnail}
-                    alt={course.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-
-                {/* Card Body */}
-                <div className="p-4">
-                  <h3 className="text-sm font-bold text-text-primary leading-snug line-clamp-2 mb-2 group-hover:text-brand-green transition-colors">
-                    {course.title}
-                  </h3>
-
-                  {/* Metadata */}
-                  <p className="text-xs text-text-secondary mb-3">
-                    {course.lessonCount} Lessons
-                    {course.trialCount ? ` • ${course.trialCount} Trial` : ''}
-                  </p>
-
-                  {/* Pricing */}
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {course.price === null ? (
-                      <span className="text-base font-bold text-green-600">FREE</span>
-                    ) : (
-                      <>
-                        <span className="text-base font-bold text-text-primary">
-                          Rs. {course.price.toLocaleString('en-PK')}
-                        </span>
-                        {course.originalPrice && (
-                          <span className="text-xs text-text-secondary line-through">
-                            Rs. {course.originalPrice.toLocaleString('en-PK')}
-                          </span>
-                        )}
-                        {course.discountPercent && (
-                          <span className="discount-pill">
-                            {course.discountPercent}% off
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </div>
-                </div>
+              <div key={course.id} style={{ animationDelay: `${index * 50}ms` }} className="animate-fade-in">
+                <CourseCard course={course} />
               </div>
             ))}
           </div>
@@ -178,12 +130,12 @@ export default function Home() {
               <span className="count-badge">{batches.length}</span>
             </div>
             <div className="flex items-center gap-3">
-              <button className="text-sm font-semibold text-brand-green hover:text-brand-green-dark transition-colors flex items-center gap-1">
+              <Link href="/courses" className="text-sm font-semibold text-brand-green hover:text-brand-green-dark transition-colors flex items-center gap-1 no-underline">
                 View All
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </button>
+              </Link>
 
               {/* Carousel Arrows */}
               <div className="hidden sm:flex items-center gap-2">
