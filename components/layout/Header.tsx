@@ -82,6 +82,13 @@ export default function Header() {
 
         {/* ── Right Actions (desktop) ──────────── */}
         <div className="hidden md:flex items-center gap-3">
+          <Link href="/courses" className="text-sm font-medium text-text-secondary hover:text-brand-green transition-colors no-underline">
+            Courses
+          </Link>
+          <Link href="/about" className="text-sm font-medium text-text-secondary hover:text-brand-green transition-colors no-underline">
+            About Us
+          </Link>
+
 
           {user ? (
             <div className="flex items-center gap-3 ml-2 border-l border-border-light pl-3">
@@ -154,6 +161,12 @@ export default function Header() {
               />
             </form>
 
+            <Link href="/courses" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors py-2 no-underline" onClick={() => setMenuOpen(false)}>
+              Courses
+            </Link>
+            <Link href="/about" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors py-2 no-underline" onClick={() => setMenuOpen(false)}>
+              About Us
+            </Link>
 
             {user ? (
               <div className="flex flex-col gap-2">
